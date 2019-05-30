@@ -6,10 +6,10 @@ Based on [question2answer](https://github.com/q2a/question2answer).
 
 ## Usage
 
-Modify the variables in the `.env` file.
+Edit the variables in the `.env` file.
 
 ```
-git clone https://github.com/q2a/question2answer
+git clone https://github.com/flavienbwk/Docker-Q-A
 mv question2answer/qa-config-example.php question2answer/qa-config.php
 docker-compose up -d
 ```
