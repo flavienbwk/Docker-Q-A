@@ -1,0 +1,72 @@
+version: "3"
+
+networks:
+  external-network:
+    driver: bridge
+  internal-network:
+    driver: bridge
+
+services:
+
+  nginx:
+    build: ./nginx
+    restart: always
+    tty: true
+    depends_on:
+      - php
+    environment: 
+      APACHE_ADMIN_EMAIL: ${APACHE_ADMIN_EMAIL}
+      HOSTNAME: ${HOSTNAME}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - ./question2answer:/question2answer
+      - ./nginx/logs:/var/log/nginx
+    ports:
+      - "8080:80"
+      - "443"
+    links:
+      - php
+    networks:
+      - internal-network
+      - external-network
+
+  php:
+    container_name: question2answer_php
+    build: ./php
+    tty: true
+    volumes:
+      - ./question2answer:/question2answer
+    depends_on:
+      - mariadb
+    ports:
+      - "9000"
+    links:
+      - mariadb
+    networks:
+      - internal-network
+
+  mariadb:
+    container_name: question2answer_mariadb
+    image: mariadb
+    tty: true
+    restart: always
+    environment:
+        MYSQL_DATABASE: ${DB_NAME}
+        MYSQL_USER: ${DB_USER}
+        MYSQL_PASSWORD: ${DB_PASSWORD}
+        DB_BACKUPS_DIR: ${DB_BACKUPS_DIR}
+    volumes:
+        - ./mariadb/cron-backups:/etc/cron.d/cron-backups
+        - ./mariadb/cron-init.sh:/docker-entrypoint-initdb.d/cron-init.sh
+        - ./mariadb/database.sql:/docker-entrypoint-initdb.d/database.sql
+        - mariadb_data:/var/lib/mysql
+        - ${DB_BACKUPS_DIR}:/var/mariadb_backups
+    ports:
+      - "3306"
+    networks:
+      - internal-network
+
+volumes:
+  mariadb_data:

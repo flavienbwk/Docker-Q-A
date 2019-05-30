@@ -1,0 +1,1 @@
+0 * * * * /usr/bin/mysqldump -u $MYSQL_USER --password=$MYSQL_PASSWORD $MYSQL_NAME > "$(date +"%Y%m%d_%H%M%S").sql"
