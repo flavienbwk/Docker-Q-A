@@ -2,13 +2,15 @@
 
 A docker-compose to get you Q&A web platform instantly ready.
 
-Base on [question2answer](https://github.com/q2a/question2answer).
+Based on [question2answer](https://github.com/q2a/question2answer).
 
 ## Usage
 
 Modify the variables in the `.env` file.
 
 ```
+git clone https://github.com/q2a/question2answer
+mv question2answer/qa-config-example.php question2answer/qa-config.php
 docker-compose up -d
 ```
 
