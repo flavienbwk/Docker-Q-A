@@ -10,6 +10,8 @@ Edit the variables in the `.env` file.
 
 ```
 git clone https://github.com/flavienbwk/Docker-Q-A
+cd Docker-Q-A
+git clone https://github.com/q2a/question2answer
 mv question2answer/qa-config-example.php question2answer/qa-config.php
 docker-compose up -d
 ```
