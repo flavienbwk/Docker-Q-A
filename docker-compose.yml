@@ -56,6 +56,7 @@ services:
         MYSQL_DATABASE: ${DB_NAME}
         MYSQL_USER: ${DB_USER}
         MYSQL_PASSWORD: ${DB_PASSWORD}
+        MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
         DB_BACKUPS_DIR: ${DB_BACKUPS_DIR}
     volumes:
         - ./mariadb/cron-backups:/etc/cron.d/cron-backups
