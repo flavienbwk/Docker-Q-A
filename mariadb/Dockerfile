@@ -1,5 +1,7 @@
 FROM mariadb:10.4
 
+USER root
+
 COPY database.sql /docker-entrypoint-initdb.d
 
 ADD cron-backups /etc/cron.d/cron-backups
